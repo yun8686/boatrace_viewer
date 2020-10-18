@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model barance01_order {
+  id        Int      @id @default(autoincrement())
+  racedate  DateTime
+  jyoCode   String
+  raceNo    String
+  kumiban   String
+  price     Int?
+  isbuy     Boolean? @default(false)
+  buystatus String?
+  wallet_id Int?
+
+  @@index([racedate, jyoCode, raceNo], name: "racedate")
+}
+
+model barance01_tweetlist {
+  id        Int      @id @default(autoincrement())
+  tweetid   String
+  racedate  DateTime
+  jyoCode   String
+  raceNo    String
+  kumiban   String
+  price     Int?
+  isreplied Boolean? @default(false)
+
+  @@index([racedate, jyoCode, raceNo], name: "racedate")
+  @@index([tweetid], name: "tweetid")
+}
+
+model barance01_wallet {
+  id            Int      @id @default(autoincrement())
+  paysum        Int?
+  payout        Int?     @default(0)
+  recovery_rate Float?   @default(0)
+  block         Boolean? @default(false)
+  used          Boolean? @default(false)
+
+  @@index([recovery_rate], name: "recovery_rate")
+}
+
+model beforeinfo {
+  racedate DateTime
+  jyoCode  String
+  raceNo   String
+  wind     Float?
+  windtext String?
+  weather  String?
+
+  @@id([racedate, jyoCode, raceNo])
+}
+
+model buydata {
+  id        Int      @id @default(autoincrement())
+  racedate  DateTime
+  jyoCode   String
+  raceNo    String
+  kumiban   String
+  price     Int?
+  isbuy     Boolean? @default(false)
+  buystatus String?
+
+  @@index([racedate, jyoCode, raceNo], name: "racedate")
+}
+
+model jyomst {
+  code String @id
+  name String
+}
+
+model racedata {
+  racedate DateTime
+  jyoCode  String
+  raceNo   String
+
+  @@id([racedate, jyoCode, raceNo])
+}
+
+model raceinfo {
+  racedate DateTime
+  jyoCode  String
+  raceNo   String
+  time     Int
+  daynum   Int?
+
+  @@id([racedate, jyoCode, raceNo])
+}
+
+model raceresult {
+  racedate      DateTime
+  jyoCode       String
+  raceNo        String
+  santankumiban String
+  santanodds    Float?
+
+  @@id([racedate, jyoCode, raceNo])
+}
+
+model rentan2 {
+  racedate DateTime
+  jyoCode  String
+  raceNo   String
+  rank     Int
+  kumiban  String
+  odds     Float
+
+  @@id([racedate, jyoCode, raceNo, rank])
+}
+
+model rentan3 {
+  racedate DateTime
+  jyoCode  String
+  raceNo   String
+  rank     Int
+  kumiban  String
+  odds     Float
+
+  @@id([racedate, jyoCode, raceNo, rank])
+}

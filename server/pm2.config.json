@@ -1,0 +1,7 @@
+{
+  "name": "boatrace_viewer",
+  "script": "index.js",
+  "env_production": {
+    "NODE_ENV": "production"
+  }
+}
