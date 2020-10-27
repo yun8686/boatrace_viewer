@@ -1,11 +1,12 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import useAspidaSWR from '@aspida/swr'
 import styles from '~/styles/Home.module.css'
 import { apiClient } from '~/utils/apiClient'
-import UserBanner from '~/components/UserBanner'
 
 const Home = () => {
   const { data: jyoList, error } = useAspidaSWR(apiClient.jyomst)
+  const { data: buyData, error: buyDataError } = useAspidaSWR(apiClient.buydata)
 
   if (error) return <div>failed to load</div>
   if (!jyoList) return <div>loading...</div>
@@ -13,42 +14,24 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>frourio-todo-app</title>
+        <title>競艇投資メニュー</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <UserBanner />
-
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>frourio-todo-app</p>
-
+        <h1 className={styles.title}>競艇投資メニュー</h1>
         <div>
           <ul className={styles.tasks}>
-            {jyoList.map((jyoData) => (
-              <li key={jyoData.code}>
-                <label>
-                  <span>{jyoData.name}</span>
-                </label>
-              </li>
-            ))}
+            <li>
+              <label>
+                <Link href="/buydata">
+                  <a>購入リスト</a>
+                </Link>
+              </label>
+            </li>
           </ul>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   )
 }
