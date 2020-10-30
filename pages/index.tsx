@@ -5,12 +5,6 @@ import styles from '~/styles/Home.module.css'
 import { apiClient } from '~/utils/apiClient'
 
 const Home = () => {
-  const { data: jyoList, error } = useAspidaSWR(apiClient.jyomst)
-  const { data: buyData, error: buyDataError } = useAspidaSWR(apiClient.buydata)
-
-  if (error) return <div>failed to load</div>
-  if (!jyoList) return <div>loading...</div>
-
   return (
     <div className={styles.container}>
       <Head>

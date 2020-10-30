@@ -66,13 +66,17 @@ model buydata {
   price     Int?
   isbuy     Boolean? @default(false)
   buystatus String?
+  jyomst    jyomst   @relation(fields: [jyoCode], references: [code])
+  raceinfo  raceinfo @relation(fields: [racedate, jyoCode, raceNo], references: [racedate, jyoCode, raceNo])
 
+  @@index([jyoCode], name: "jyoCode")
   @@index([racedate, jyoCode, raceNo], name: "racedate")
 }
 
 model jyomst {
-  code String @id
-  name String
+  code    String    @id
+  name    String
+  buydata buydata[]
 }
 
 model racedata {
@@ -84,11 +88,15 @@ model racedata {
 }
 
 model raceinfo {
-  racedate DateTime
-  jyoCode  String
-  raceNo   String
-  time     Int
-  daynum   Int?
+  racedate    DateTime
+  jyoCode     String
+  raceNo      String
+  time        Int
+  tbgradename String
+  nj          String
+  nightflag   Int?
+  buydata     buydata[]
+  raceresult  raceresult?
 
   @@id([racedate, jyoCode, raceNo])
 }
@@ -99,6 +107,7 @@ model raceresult {
   raceNo        String
   santankumiban String
   santanodds    Float?
+  raceinfo      raceinfo @relation(fields: [racedate, jyoCode, raceNo], references: [racedate, jyoCode, raceNo])
 
   @@id([racedate, jyoCode, raceNo])
 }
@@ -123,4 +132,24 @@ model rentan3 {
   odds     Float
 
   @@id([racedate, jyoCode, raceNo, rank])
+}
+
+model jyoinfo {
+  racedate    DateTime
+  jyoCode     String
+  tbgradename String
+  nj          String
+  nightflag   Int?
+
+  @@id([racedate, jyoCode])
+}
+
+model raceinfoold {
+  racedate DateTime
+  jyoCode  String
+  raceNo   String
+  time     Int
+  daynum   Int?
+
+  @@id([racedate, jyoCode, raceNo])
 }

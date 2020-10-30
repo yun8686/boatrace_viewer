@@ -1,0 +1,13 @@
+{
+  "name": "boatrace_viewercli",
+  "script": "yarn",
+  "args": "start:front",
+  "cwd": "/home/ubuntu/boatrace_viewer",
+  "interpreter": "/bin/bash",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "env_production": {
+    "NODE_ENV": "production"
+  }
+}
