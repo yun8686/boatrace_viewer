@@ -23,6 +23,13 @@ const Home = () => {
                 </Link>
               </label>
             </li>
+            <li>
+              <label>
+                <Link href="/raceinfo">
+                  <a>監視状況</a>
+                </Link>
+              </label>
+            </li>
           </ul>
         </div>
       </main>
