@@ -92,9 +92,6 @@ model raceinfo {
   jyoCode     String
   raceNo      String
   time        Int
-  tbgradename String
-  nj          String
-  nightflag   Int?
   buydata     buydata[]
   raceresult  raceresult?
 
@@ -137,9 +134,6 @@ model rentan3 {
 model jyoinfo {
   racedate    DateTime
   jyoCode     String
-  tbgradename String
-  nj          String
-  nightflag   Int?
 
   @@id([racedate, jyoCode])
 }
