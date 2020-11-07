@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import useAspidaSWR from '@aspida/swr'
+import Header from '../../components/Header'
+import Menu from '../../components/Menu'
+import Footer from '../../components/Footer'
 import styles from '~/styles/Home.module.css'
 import { apiClient } from '~/utils/apiClient'
 import { dateToString, stringToDate } from '~/utils/dateUtils'
@@ -29,16 +32,24 @@ const BuyData = (param) => {
         <title>本日の購入</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <Header></Header>
+      <Menu></Menu>
       <main className={styles.main}>
-        <h1 className={styles.title}>競艇投資メニュー</h1>
-        <Link href={`/buydata?date=${dateToString(prevDate)}`}>
-          <a>前日</a>
-        </Link>
-        <a>{currentDate.toLocaleDateString()}</a>
-        <Link href={`/buydata?date=${dateToString(nextDate)}`}>
-          <a>翌日</a>
-        </Link>
+        <h2 className={styles.title}>購入リスト</h2>
+        <div className={styles.dateBox}>
+          <button>
+            <Link href={`/buydata?date=${dateToString(prevDate)}`}>
+              <a>&lt;&lt; 前日</a>
+            </Link>
+          </button>
+          <span className={styles.dateBox_text}>{currentDate.toLocaleDateString()}</span>
+          <button>
+            <Link href={`/buydata?date=${dateToString(nextDate)}`}>
+              <a>翌日 &gt;&gt;</a>
+            </Link>
+          </button>
+        </div>
+
         <div>
           <ul className={styles.tasks} style={{ textAlign: 'center' }}>
             <li style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -55,7 +66,7 @@ const BuyData = (param) => {
                 <span>結果</span>
               </label>
               <label style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}>
-                <span>払い戻し額</span>
+                <span>払戻額</span>
               </label>
             </li>
             {buydata ? (
@@ -116,6 +127,7 @@ const BuyData = (param) => {
           </ul>
         </div>
       </main>
+      <Footer></Footer>
     </div>
   )
 }
