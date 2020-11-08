@@ -56,21 +56,21 @@ const BuyData = (param) => {
         </div>
 
         <div>
-          <ul className={styles.tasks} style={{ textAlign: 'center' }}>
-            <li style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <label style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}>
+          <ul className={styles.tasks}>
+            <li className={styles.tasks_list}>
+              <label>
                 <span>レース</span>
               </label>
-              <label style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}>
+              <label>
                 <span>買い目</span>
               </label>
-              <label style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}>
+              <label>
                 <span>購入額</span>
               </label>
-              <label style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}>
+              <label>
                 <span>結果</span>
               </label>
-              <label style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}>
+              <label>
                 <span>払戻額</span>
               </label>
             </li>
@@ -84,40 +84,23 @@ const BuyData = (param) => {
                 const getPrice = Math.round(isWin ? price * santanodds : 0)
 
                 return (
-                  <li
-                    style={{ display: 'flex', justifyContent: 'space-between' }}
-                  >
-                    <label
-                      style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}
-                    >
+                  <li className={styles.tasks_list}>
+                    <label>
                       <span>{`${data.jyomst?.name}${parseInt(
                         data.raceNo
                       )}R`}</span>
                     </label>
-                    <label
-                      style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}
-                    >
+                    <label>
                       <span>{`${data.kumiban}`}</span>
                     </label>
-                    <label
-                      style={{ padding: '0 2px', flexBasis: 1, flexGrow: 1 }}
-                    >
+                    <label>
                       <span>{`${price}`}</span>
                     </label>
-                    <label
-                      style={{
-                        padding: '0 2px',
-                        flexBasis: 1,
-                        flexGrow: 1
-                      }}
-                    >
+                    <label>
                       <span>{`${data.raceinfo.raceresult?.santankumiban}`}</span>
                     </label>
                     <label
                       style={{
-                        padding: '0 2px',
-                        flexBasis: 1,
-                        flexGrow: 1,
                         backgroundColor: isWin ? 'lightgreen' : 'transparent'
                       }}
                     >
