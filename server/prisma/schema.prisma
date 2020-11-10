@@ -94,6 +94,8 @@ model raceinfo {
   time        Int
   buydata     buydata[]
   raceresult  raceresult?
+  jyomst      jyomst   @relation(fields: [jyoCode], references: [code])
+  rentan3     rentan3  @relation(fields: [racedate, jyoCode, raceNo], references: [racedate, jyoCode, raceNo])
 
   @@id([racedate, jyoCode, raceNo])
 }

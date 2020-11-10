@@ -1,5 +1,9 @@
+import { RaceInfoData } from '$/service/raceinfo'
+import { jyomst, raceinfo } from '@prisma/client'
+
 export type Methods = {
   get: {
-    resBody: string
+    query: { date: string }
+    resBody: RaceInfoData[]
   }
 }

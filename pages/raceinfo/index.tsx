@@ -13,24 +13,18 @@ const BuyData = (param) => {
   const dateStr = router.query.date
     ? (router.query.date as string)
     : dateToString(new Date())
-  const { data: buydata } = useAspidaSWR(apiClient.buydata, {
+  const { data: raceinfo } = useAspidaSWR(apiClient.raceinfo, {
     query: {
       date: dateStr
     }
   })
   const currentDate = stringToDate(dateStr)
-  const prevDate = new Date(
-    stringToDate(dateStr).setDate(currentDate.getDate() - 1)
-  )
-  const nextDate = new Date(
-    stringToDate(dateStr).setDate(currentDate.getDate() + 1)
-  )
-
-  console.log('buydata', buydata)
-
-  if(buydata?.sort){
-    buydata?.sort((a, b) => a.raceinfo.time - b.raceinfo.time)
+  let currentTime = 10000
+  if (dateToString(new Date()) === dateStr) {
+    currentTime = new Date().getHours() * 100 + new Date().getMinutes()
   }
+
+  raceinfo?.sort((a, b) => a.time - b.time)
   return (
     <div className={styles.container}>
       <Head>
@@ -42,8 +36,9 @@ const BuyData = (param) => {
       <main className={styles.main}>
         <h2 className={styles.title}>監視状況</h2>
         <div className={styles.dateBox}>
-
-          <span className={styles.dateBox_text}>{currentDate.toLocaleDateString()}</span>
+          <span className={styles.dateBox_text}>
+            {currentDate.toLocaleDateString()}
+          </span>
           <p>レース時間：9:00〜21:30</p>
           <p>購入回数：10</p>
         </div>
@@ -53,6 +48,9 @@ const BuyData = (param) => {
             <li className={styles.tasks_list}>
               <label>
                 <span>レース</span>
+              </label>
+              <label>
+                <span>開始時刻</span>
               </label>
               <label>
                 <span>買い目</span>
@@ -66,60 +64,50 @@ const BuyData = (param) => {
               <label>
                 <span>状態</span>
               </label>
+              <label>
+                <span>結果</span>
+              </label>
             </li>
             {/* 下記はテスト用 */}
-            <li className={styles.tasks_list}
-              style={{
-                backgroundColor:'lightgrey'
-              }}
+            {raceinfo?.map((race) => (
+              <li
+                className={styles.tasks_list}
+                style={{
+                  backgroundColor: race.time < currentTime ? 'lightgrey' : ''
+                }}
               >
-              <label><span>津5R</span></label>
-              <label><span>1-2-4</span></label>
-              <label><span>3.2</span></label>
-              <label><span>3400</span></label>
-              <label><span>購入済み</span></label>
-            </li>
-            <li className={styles.tasks_list}>
-              <label><span>住之江12R</span></label>
-              <label><span>1-2-4</span></label>
-              <label><span>2.8</span></label>
-              <label><span>3400</span></label>
-              <label><span>購入前</span></label>
-            </li>
-            {buydata?.sort ? (
-              buydata.map((data) => {
-                const santanodds = data.raceinfo.raceresult?.santanodds || 0
-                const price = data.price || 0
-                const isWin =
-                  data.raceinfo.raceresult?.santankumiban === data.kumiban
-
-                const getPrice = Math.round(isWin ? price * santanodds : 0)
-
-                return (
-                  <li className={styles.tasks_list}>
-                    <label>
-                      <span>{`${data.jyomst?.name}${parseInt(
-                        data.raceNo
-                      )}R`}</span>
-                    </label>
-                    <label>
-                      <span>{`${data.kumiban}`}</span>
-                    </label>
-                    <label>
-                      <span>{`${price}`}</span>
-                    </label>
-                    <label>
-                      <span>{`${data.raceinfo.raceresult?.santankumiban}`}</span>
-                    </label>
-                    <label>
-                      <span>{`${getPrice}`}</span>
-                    </label>
-                  </li>
-                )
-              })
-            ) : (
-              <div>...loading</div>
-            )}
+                <label>
+                  <span>
+                    {race.jyoname}
+                    {race.raceNo}R
+                  </span>
+                </label>
+                <label>
+                  <span>{race.time}</span>
+                </label>
+                <label>
+                  <span>{race.buykumiban}</span>
+                </label>
+                <label>
+                  <span>{race.fstodds}</span>
+                </label>
+                <label>
+                  <span>{race.buyprice}</span>
+                </label>
+                <label>
+                  <span>
+                    {race.buystatus === 'complete'
+                      ? '購入済'
+                      : race.buystatus === 'closed'
+                      ? '購入できなかった'
+                      : ''}
+                  </span>
+                </label>
+                <label>
+                  <span>{race.reskumiban}</span>
+                </label>
+              </li>
+            ))}
           </ul>
         </div>
       </main>
