@@ -42,17 +42,10 @@ const BuyData = (param) => {
       <main className={styles.main}>
         <h2 className={styles.title}>監視状況</h2>
         <div className={styles.dateBox}>
-          <button>
-            <Link href={`/raceinfo?date=${dateToString(prevDate)}`}>
-              <a>&lt;&lt; 前日</a>
-            </Link>
-          </button>
+
           <span className={styles.dateBox_text}>{currentDate.toLocaleDateString()}</span>
-          <button>
-            <Link href={`/raceinfo?date=${dateToString(nextDate)}`}>
-              <a>翌日 &gt;&gt;</a>
-            </Link>
-          </button>
+          <p>レース時間：9:00〜21:30</p>
+          <p>購入回数：10</p>
         </div>
 
         <div>
@@ -65,14 +58,33 @@ const BuyData = (param) => {
                 <span>買い目</span>
               </label>
               <label>
+                <span>オッズ</span>
+              </label>
+              <label>
                 <span>購入額</span>
               </label>
               <label>
-                <span>結果</span>
+                <span>状態</span>
               </label>
-              <label>
-                <span>払戻額</span>
-              </label>
+            </li>
+            {/* 下記はテスト用 */}
+            <li className={styles.tasks_list}
+              style={{
+                backgroundColor:'lightgrey'
+              }}
+              >
+              <label><span>津5R</span></label>
+              <label><span>1-2-4</span></label>
+              <label><span>3.2</span></label>
+              <label><span>3400</span></label>
+              <label><span>購入済み</span></label>
+            </li>
+            <li className={styles.tasks_list}>
+              <label><span>住之江12R</span></label>
+              <label><span>1-2-4</span></label>
+              <label><span>2.8</span></label>
+              <label><span>3400</span></label>
+              <label><span>購入前</span></label>
             </li>
             {buydata?.sort ? (
               buydata.map((data) => {
@@ -99,11 +111,7 @@ const BuyData = (param) => {
                     <label>
                       <span>{`${data.raceinfo.raceresult?.santankumiban}`}</span>
                     </label>
-                    <label
-                      style={{
-                        backgroundColor: isWin ? 'lightgreen' : 'transparent'
-                      }}
-                    >
+                    <label>
                       <span>{`${getPrice}`}</span>
                     </label>
                   </li>
