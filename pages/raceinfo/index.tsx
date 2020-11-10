@@ -18,7 +18,15 @@ const BuyData = (param) => {
       date: dateStr
     }
   })
+
   const currentDate = stringToDate(dateStr)
+  const prevDate = new Date(
+    stringToDate(dateStr).setDate(currentDate.getDate() - 1)
+  )
+  const nextDate = new Date(
+    stringToDate(dateStr).setDate(currentDate.getDate() + 1)
+  )
+
   let currentTime = 10000
   if (dateToString(new Date()) === dateStr) {
     currentTime = new Date().getHours() * 100 + new Date().getMinutes()
@@ -35,6 +43,21 @@ const BuyData = (param) => {
       <Menu></Menu>
       <main className={styles.main}>
         <h2 className={styles.title}>監視状況</h2>
+        <div className={styles.dateBox}>
+          <button>
+            <Link href={`/raceinfo?date=${dateToString(prevDate)}`}>
+              <a>&lt;&lt; 前日</a>
+            </Link>
+          </button>
+          <span className={styles.dateBox_text}>
+            {currentDate.toLocaleDateString()}
+          </span>
+          <button>
+            <Link href={`/raceinfo?date=${dateToString(nextDate)}`}>
+              <a>翌日 &gt;&gt;</a>
+            </Link>
+          </button>
+        </div>
         <div className={styles.dateBox}>
           <span className={styles.dateBox_text}>
             {currentDate.toLocaleDateString()}
