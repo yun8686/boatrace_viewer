@@ -12,10 +12,13 @@ export type MoneyGraphType = {
   monthDataList: MoneyGraphRow[]
 }
 
-export const getMoneyGraph = async (date: Date): Promise<MoneyGraphType> => {
-  const firstDate = new Date(date.getFullYear(), date.getMonth(), 1)
-  const lastDate = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-
+export const getMoneyGraph = async ({
+  from: firstDate,
+  to: lastDate
+}: {
+  from: Date
+  to: Date
+}): Promise<MoneyGraphType> => {
   const startData = await prisma.$queryRaw<MoneyGraphRow[]>(
     ` select 
         max(racedate) as racedate,

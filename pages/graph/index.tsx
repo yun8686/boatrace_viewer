@@ -17,12 +17,15 @@ const BuyData = (param) => {
   const dateStr = router.query.date
     ? (router.query.date as string)
     : dateToString(new Date())
+  const currentDate = stringToDate(dateStr)
+  const from = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
+  const to = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
   const { data: graphData } = useAspidaSWR(apiClient.graph, {
     query: {
-      date: dateStr
+      from: dateToString(from),
+      to: dateToString(to)
     }
   })
-  const currentDate = stringToDate(dateStr)
   const prevDate = new Date(
     stringToDate(dateStr).setMonth(currentDate.getMonth() - 1)
   )
@@ -34,17 +37,17 @@ const BuyData = (param) => {
     dates: string[]
     moneys: number[]
   }>(
-    (prev, curr) => {
+    (prev, curr, i) => {
       return {
         dates: [
           ...prev.dates,
-          `${new Date(curr.racedate).getMonth()} / ${new Date(
+          `${new Date(curr.racedate).getMonth() + 1} / ${new Date(
             curr.racedate
           ).getDate()}`
         ],
         moneys: [
           ...prev.moneys,
-          curr.payoutsum - curr.paysum + prev.moneys.reduce((a, b) => a + b, 0)
+          curr.payoutsum - curr.paysum + (prev.moneys[i - 1] || 0)
         ]
       }
     },
@@ -101,7 +104,7 @@ const BuyData = (param) => {
             </Link>
           </button>
           <span className={styles.dateBox_text}>
-            {currentDate.toLocaleDateString()}
+            {from.toLocaleDateString()}~{to.toLocaleDateString()}
           </span>
           <button>
             <Link href={`/graph?date=${dateToString(nextDate)}`}>
