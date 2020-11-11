@@ -30,9 +30,11 @@
     "@aspida/fetch": "^0.10.1",
     "@aspida/swr": "^0.2.0",
     "@prisma/client": "^2.10.0",
+    "chart.js": "^2.9.4",
     "class-validator": "^0.12.2",
     "next": "9.5.3",
     "react": "16.13.1",
+    "react-chartjs-2": "^2.11.1",
     "react-dom": "16.13.1",
     "swr": "^0.3.5"
   },
