@@ -14,6 +14,11 @@ const Menu = () => {
               <p>監視状況</p>
             </Link>
           </li>
+          <li>
+            <Link href="/graph">
+              <p>所持金</p>
+            </Link>
+          </li>
         </ul>
       </menu>
 }
