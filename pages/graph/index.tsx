@@ -9,15 +9,15 @@ import { apiClient } from '~/utils/apiClient'
 import { dateToString, stringToDate } from '~/utils/dateUtils'
 import { useRouter } from 'next/dist/client/router'
 
-import React from 'react';
-import {Line} from 'react-chartjs-2';
+import React from 'react'
+import { Line } from 'react-chartjs-2'
 
 const BuyData = (param) => {
   const router = useRouter()
   const dateStr = router.query.date
     ? (router.query.date as string)
     : dateToString(new Date())
-  const { data: buydata } = useAspidaSWR(apiClient.buydata, {
+  const { data: graphData } = useAspidaSWR(apiClient.graph, {
     query: {
       date: dateStr
     }
@@ -30,18 +30,31 @@ const BuyData = (param) => {
     stringToDate(dateStr).setMonth(currentDate.getMonth() + 1)
   )
 
-  // この辺りの処理ができていない（グラフはLineタグにて表示）
-  const settingDate = new Date();
-  settingDate.setDate(1);
-  const month_dates = [`${settingDate.getMonth() + 1}/${settingDate.getDate()}`];
-  for(var i = 2; i < 32; i++){
-    settingDate.setDate(settingDate.getDate() + 1);
-    if(settingDate.getDate() === 1) break;
-    month_dates.push(`${settingDate.getMonth() + 1}/${settingDate.getDate()}`);
-  }
-  const have_money = [120000, 89000, 99800, 71000, 121000, 126600, 127600,120000, 89000, 99800, 71000, 121000, 126600, 127600,120000, 89000, 99800, 71000, 121000, 126600, 127600,120000, 89000, 99800, 71000, 121000, 126600, 127600,120000, 89000, 99800, 71000, 121000, 126600, 127600]
-  const data = {
-    labels: month_dates,
+  const dataValue = graphData?.monthDataList.reduce<{
+    dates: string[]
+    moneys: number[]
+  }>(
+    (prev, curr) => {
+      return {
+        dates: [
+          ...prev.dates,
+          `${new Date(curr.racedate).getMonth()} / ${new Date(
+            curr.racedate
+          ).getDate()}`
+        ],
+        moneys: [
+          ...prev.moneys,
+          curr.payoutsum - curr.paysum + prev.moneys.reduce((a, b) => a + b, 0)
+        ]
+      }
+    },
+    {
+      dates: [],
+      moneys: []
+    }
+  )
+  const data = dataValue && {
+    labels: dataValue.dates,
     datasets: [
       {
         label: '所持金',
@@ -62,15 +75,15 @@ const BuyData = (param) => {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: have_money,
+        data: dataValue.moneys,
         options: {
-        responsive: true,
-        maintainAspectRatio: false,
+          responsive: true,
+          maintainAspectRatio: false
         }
       }
     ]
-  };
-  buydata?.sort((a, b) => a.raceinfo.time - b.raceinfo.time)
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -87,7 +100,9 @@ const BuyData = (param) => {
               <a>&lt;&lt; 前月</a>
             </Link>
           </button>
-          <span className={styles.dateBox_text}>{currentDate.toLocaleDateString()}</span>
+          <span className={styles.dateBox_text}>
+            {currentDate.toLocaleDateString()}
+          </span>
           <button>
             <Link href={`/graph?date=${dateToString(nextDate)}`}>
               <a>翌月 &gt;&gt;</a>
@@ -96,7 +111,7 @@ const BuyData = (param) => {
         </div>
 
         <div className={styles.graph}>
-          <Line data={data}/>
+          {data ? <Line data={data} /> : <div>loading</div>}
         </div>
       </main>
       <Footer></Footer>
