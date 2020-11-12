@@ -60,7 +60,7 @@ const BuyData = (param) => {
     labels: dataValue.dates,
     datasets: [
       {
-        label: '所持金',
+        label: '収益',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -79,24 +79,24 @@ const BuyData = (param) => {
         pointRadius: 1,
         pointHitRadius: 10,
         data: dataValue.moneys,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false
-        }
       }
     ]
+  }
+  const options = {
+    maintainAspectRatio: false,
+    responsive: true,
   }
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>本日の購入</title>
+        <title>収益グラフ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>
       <Menu></Menu>
       <main className={styles.main}>
-        <h2 className={styles.title}>所持金グラフ</h2>
+        <h2 className={styles.title}>収益グラフ</h2>
         <div className={styles.dateBox}>
           <button>
             <Link href={`/graph?date=${dateToString(prevDate)}`}>
@@ -114,7 +114,8 @@ const BuyData = (param) => {
         </div>
 
         <div className={styles.graph}>
-          {data ? <Line data={data} /> : <div>loading</div>}
+          {data ? <Line data={data} 
+            options={options}/> : <div>loading</div>}
         </div>
       </main>
       <Footer></Footer>
