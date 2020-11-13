@@ -16,7 +16,7 @@ const Menu = () => {
           </li>
           <li>
             <Link href="/graph">
-              <p>所持金</p>
+              <p>収益グラフ</p>
             </Link>
           </li>
         </ul>
