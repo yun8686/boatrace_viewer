@@ -24,11 +24,11 @@ export const getTodayRaceInfo = async (date: Date) => {
         buydata.buystatus,
         raceresult.santankumiban as reskumiban
      from raceinfo 
-     join jyomst on jyocode = code 
+     join jyomst on raceinfo.jyocode = jyomst.code 
      left join rentan3 using (racedate,jyocode,raceno)
      left join buydata using (racedate,jyocode,raceno)
      left join raceresult using (racedate,jyocode,raceno)
-     where (rentan3.rank = 1 or rentan3.racedate is null) and racedate = ?;`,
+     where (rentan3.rank = 1 or rentan3.racedate is null) and raceinfo.racedate = ?;`,
     date
   )
 }

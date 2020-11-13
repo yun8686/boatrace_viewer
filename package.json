@@ -9,7 +9,7 @@
     "dev:aspida": "aspida --watch",
     "dev:frourio": "cd server && cross-env DUMMY_ENV=forWin node_modules/.bin/frourio --watch",
     "dev:prisma": "cd server && cross-env DUMMY_ENV=forWin node_modules/.bin/prisma generate --watch",
-    "build": "run-p build:front build:server",
+    "build": "run-p build:front build:server && pm2 restart boatrace_viewer",
     "build:front": "aspida && next build",
     "build:server": "npm run migrate:up && npm run build:frourio && cd server && cross-env DUMMY_ENV=forWin node_modules/.bin/webpack --mode=production",
     "build:frourio": "cd server && cross-env DUMMY_ENV=forWin node_modules/.bin/prisma generate && cross-env DUMMY_ENV=forWin node_modules/.bin/frourio",

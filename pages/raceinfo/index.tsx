@@ -109,7 +109,9 @@ const BuyData = (param) => {
                   <span>{race.time}</span>
                 </label>
                 <label>
-                  <span>{race.buykumiban}</span>
+                  <span style={{ color: !race.buykumiban ? 'gray' : 'black' }}>
+                    {race.buykumiban ? race.buykumiban : race.fstkumiban}
+                  </span>
                 </label>
                 <label>
                   <span>{race.fstodds}</span>
