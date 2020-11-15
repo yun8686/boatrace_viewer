@@ -30,6 +30,16 @@ const Home = () => {
               <p>監視状況画面へ遷移 ＞</p>
             </Link>
           </button>
+          <button>
+            <Link href="/graph">
+              <p>収益画面へ遷移 ＞</p>
+            </Link>
+          </button>
+          <button>
+            <Link href="/expected">
+              <p>予想画面へ遷移 ＞</p>
+            </Link>
+          </button>
         </div>
       </main>
       <Footer></Footer>

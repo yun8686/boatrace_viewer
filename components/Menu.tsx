@@ -19,6 +19,11 @@ const Menu = () => {
               <p>収益グラフ</p>
             </Link>
           </li>
+          <li>
+            <Link href="/expected">
+              <p>予想</p>
+            </Link>
+          </li>
         </ul>
       </menu>
 }
