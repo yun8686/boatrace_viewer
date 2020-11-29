@@ -8,7 +8,7 @@ import styles from '~/styles/Home.module.css'
 import { apiClient } from '~/utils/apiClient'
 import { dateToString, stringToDate } from '~/utils/dateUtils'
 import { useRouter } from 'next/dist/client/router'
-const ExpectedData = (param) => {
+const resultSearchData = (param) => {
   const router = useRouter()
   const dateStr = router.query.date
     ? (router.query.date as string)
@@ -90,14 +90,11 @@ const ExpectedData = (param) => {
               <option value="4">未定</option>
             </select>
           </div>
-          <button className="setting_submit" type="submit">
+          <button className={styles.setting_submit} type="submit">
             実行
           </button>
         </form>
-        <div className={styles.dateBox}>
-          <span className={styles.dateBox_text}>{currentDate.toLocaleDateString()}</span>
-        </div>
-
+        <h2 className={styles.title}>予想結果</h2>
         <div>
           <ul className={styles.tasks}>
             <li className={styles.tasks_list}>
@@ -163,4 +160,4 @@ const ExpectedData = (param) => {
   )
 }
 
-export default ExpectedData
+export default resultSearchData

@@ -36,7 +36,7 @@ const Home = () => {
             </Link>
           </button>
           <button>
-            <Link href="/expected">
+            <Link href="/resultSearch">
               <p>予想画面へ遷移 ＞</p>
             </Link>
           </button>

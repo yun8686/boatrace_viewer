@@ -20,7 +20,7 @@ const Menu = () => {
             </Link>
           </li>
           <li>
-            <Link href="/expected">
+            <Link href="/resultSearch">
               <p>予想</p>
             </Link>
           </li>

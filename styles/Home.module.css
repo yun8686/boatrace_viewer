@@ -100,6 +100,8 @@
 .setting {
   border: 1px solid #333;
   padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 12px;
 }
 .money_possession {
   padding: 0 2px;
@@ -115,4 +117,13 @@
 }
 .setting_input {
   margin-right: 8px;
+}
+.setting_submit {
+  width: 160px;
+  border-radius: 4px;
+  background-color: #0069D5;
+  border: none;
+  color: #FFF;
+  padding: 8px;
+  margin-left: 72px;
 }
