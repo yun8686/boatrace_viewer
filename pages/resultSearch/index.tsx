@@ -36,23 +36,21 @@ const resultSearchData = (param) => {
       <main className={styles.main}>
         <h2 className={styles.title}>結果検索</h2>
         <div className={styles.setting}>
-          <div className={styles.setting_cell}>
-            <span className={styles.setting_title}>所持金</span>
-            <textarea
-              name="money"
-              className={styles.setting_input}
-              value={inputText}
-              onChange={(text) => setInputText(text.target.value)}
-            />
-          </div>
+          <p className={styles.setting_title}>検索レースの入力欄</p>
+          <textarea
+            name="textarea"
+            className={styles.setting_textarea}
+            value={inputText}
+            onChange={(text) => setInputText(text.target.value)}
+          />
           <button
             className={styles.setting_submit}
             onClick={() => runSearch(inputText)}
           >
-            実行
+            検索
           </button>
         </div>
-        <h2 className={styles.title}>予想結果</h2>
+        <h2 className={styles.title}>検索結果</h2>
         <div>
           <ul className={styles.tasks}>
             <li className={styles.tasks_list}>
