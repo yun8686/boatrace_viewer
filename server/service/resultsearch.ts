@@ -1,3 +1,4 @@
+import { dateToString } from '$/../utils/dateUtils'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
@@ -8,7 +9,7 @@ export type ResultSearchData = {
   racedate: Date
   jyocode: string
   raceno: string
-  jyoname?: string
+  jyoname: string
   kumiban: string
   odds: string
 }
@@ -73,7 +74,7 @@ const searchResult = async (
     .filter((data) => data.racedate && data.jyocode && data.raceno)
     .map(
       (data) =>
-        `('${data.racedate.toLocaleDateString()}','${data.jyocode}','${
+        `('${dateToString(data.racedate, 'YYYY/MM/DD')}','${data.jyocode}','${
           data.raceno
         }')`
     )
@@ -82,17 +83,17 @@ const searchResult = async (
   const query = ` select 
         racedate as racedate,
         jyocode,
+        (select name from jyomst where code = jyocode) as jyoname,
         raceno,
         santankumiban as kumiban,
         santanodds as odds
-    from buydata 
+    from raceinfo
     join raceresult using (racedate, jyocode, raceno) 
     where (racedate,jyocode,raceno) in (${inSet})
   ;`
   console.log('query', query)
 
-  const result = await prisma.$queryRaw<Omit<ResultSearchData, 'jyoname'>[]>(
-    query
-  )
+  const result = await prisma.$queryRaw<ResultSearchData[]>(query)
+  console.log('result', result)
   return result
 }

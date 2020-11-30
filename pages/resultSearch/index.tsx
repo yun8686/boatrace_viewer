@@ -69,8 +69,8 @@ const resultSearchData = (param) => {
                 <span>オッズ</span>
               </label>
             </li>
-            {data?.map((row) => (
-              <li className={styles.tasks_list}>
+            {data?.map((row, i) => (
+              <li className={styles.tasks_list} key={`data_${i}`}>
                 <label>
                   <span>{new Date(row?.racedate).toLocaleDateString()}</span>
                 </label>

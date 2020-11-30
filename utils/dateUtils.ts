@@ -1,5 +1,13 @@
-export const dateToString = (date: Date) =>
-  `${date.getFullYear()}${("0" + (date.getMonth() + 1)).slice(-2)}${("0" + date.getDate()).slice(-2)}`
+export const dateToString = (date: Date, format?: string) => {
+  const year = `${date.getFullYear()}`
+  const month = `${('0' + (date.getMonth() + 1)).slice(-2)}`
+  const dd = `${('0' + date.getDate()).slice(-2)}`
+  if (!format) {
+    return `${year}${month}${dd}`
+  } else {
+    return format.replace('YYYY', year).replace('MM', month).replace('DD', dd)
+  }
+}
 
 export const stringToDate = (str: string): Date =>
   new Date(
