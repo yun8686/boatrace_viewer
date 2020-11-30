@@ -21,7 +21,7 @@ const Menu = () => {
           </li>
           <li>
             <Link href="/resultSearch">
-              <p>予想</p>
+              <p>結果検索</p>
             </Link>
           </li>
         </ul>

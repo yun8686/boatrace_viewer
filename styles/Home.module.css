@@ -101,22 +101,20 @@
   border: 1px solid #333;
   padding: 8px;
   margin-top: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 32px;
 }
 .money_possession {
   padding: 0 2px;
   font-size: 16px;
 }
-.setting_cell {
-  display: flex;
-  margin-bottom: 12px;
-}
 .setting_title {
-  width: 64px;
-  margin-right: 8px;
+  margin: 0 0 8px;
 }
-.setting_input {
-  margin-right: 8px;
+.setting_textarea {
+  display: block;
+  width: 80%;
+  height: 120px;
+  margin-bottom: 8px;
 }
 .setting_submit {
   width: 160px;
@@ -125,5 +123,4 @@
   border: none;
   color: #FFF;
   padding: 8px;
-  margin-left: 72px;
 }

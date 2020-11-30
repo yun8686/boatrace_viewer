@@ -37,7 +37,7 @@ const Home = () => {
           </button>
           <button>
             <Link href="/resultSearch">
-              <p>予想画面へ遷移 ＞</p>
+              <p>結果検索画面へ遷移 ＞</p>
             </Link>
           </button>
         </div>
