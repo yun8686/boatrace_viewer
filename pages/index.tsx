@@ -40,6 +40,11 @@ const Home = () => {
               <p>結果検索画面へ遷移 ＞</p>
             </Link>
           </button>
+          <button>
+            <Link href="/resultGraph">
+              <p>グラフページへ遷移 ＞</p>
+            </Link>
+          </button>
         </div>
       </main>
       <Footer></Footer>

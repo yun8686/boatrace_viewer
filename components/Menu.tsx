@@ -24,6 +24,11 @@ const Menu = () => {
               <p>結果検索</p>
             </Link>
           </li>
+          <li>
+            <Link href="/resultGraph">
+              <p>グラフページ</p>
+            </Link>
+          </li>
         </ul>
       </menu>
 }
